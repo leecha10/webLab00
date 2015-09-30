@@ -3,7 +3,7 @@ body {
   margin-right: 15%;
   background-image: url("http://selab.hanyang.ac.kr/courses/cse326/2015/problems/images/3/blueTextureBG.jpg");
 }
-body article {
+div {
   background-color: white;
   border-color: white;
   border-width: 10px thick;
@@ -23,8 +23,8 @@ header {
 }
 section h2 {
   border-bottom-color: blue;
-  border-bottom-width: 2px thick;
   border-bottom-style: dashed;
+  border-bottom-width: 2px;
   text-align: right;
 }
 section {
@@ -49,18 +49,12 @@ aside {
   border-radius: 15px;
   margin: 10px;
   padding: 5px;
+  width: 150px;
 }
 article {
   overflow: hidden;
 }
 
-section *:not(section):hover {
+div * *:not(section):hover{
     background-color: #ffff00;
-}
-aside *:hover {
-  background-color: #ffff00;
-}
-
-header *:hover {
-  background-color: #ffff00;
 }
