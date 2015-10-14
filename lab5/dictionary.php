@@ -38,6 +38,7 @@
                 return $resultArray;
             }
             if(!isset($_GET["number_of_words"])) $numberOfWords = 3;
+            else if ($_GET["number_of_words"] == "") $numberOfWords = 3;
             else $numberOfWords = $_GET["number_of_words"];
             $todaysWords = getWordsByNumber($lines, $numberOfWords);
             asort($todaysWords);'' ?>
@@ -66,11 +67,12 @@
             function getWordsByCharacter($listOfWords, $startCharacter){
                 $resultArray = array();
                 foreach ($listOfWords as $sword) {
-                  if ( $sword[0] == $startCharacter ) $resultArray[] = $sword;
+                  if ( strtoupper($sword[0]) == $startCharacter ) $resultArray[] = $sword;
                 }
                 return $resultArray;
             }
             if(!isset($_GET["character"])) $startCharacter = "C";
+            else if(($_GET["character"]) == "") $startCharacter = "C";
             else $startCharacter = strtoupper($_GET["character"]);
 
             $searchedWords = getWordsByCharacter($lines, $startCharacter);
@@ -106,6 +108,7 @@
                 return $resultArray;
             }
             if(!isset($_GET["orderby"])) $orderby = 0;
+            else if(($_GET["orderby"]) == "") $orderby = 0;
             else $orderby = $_GET["orderby"];
 
             $orderedWords = getWordsByOrder($lines, $orderby);
@@ -121,12 +124,15 @@
         </p>
         <ol>
           <?php
-          var_dump($orderedWords);
           foreach ($orderedWords as $oword) {
               $temp = explode("	", $oword);
-              $i = 0; ?>
+              $i = 0;
+              if (strlen($temp[0]) > 6) { ?>
+                <li class="long">
+              <?php } else { ?>
               <li>
                 <?php
+              }
                 foreach ($temp as $tword) {
                   print $tword;
                   if ($i == 0) print " - ";
@@ -141,18 +147,18 @@
     <div class="section">
         <h2>Adding Words</h2>
 <!-- Ex. 5: Adding Words & Ex 6: Query Parameters -->
-        <?php
-        $newWord = $_GET["new_word"];
-        $meaning = $_GET["meaning"];
-
-        if ( !(isset($newWord)) or !(isset($meaning))) { ?>
-          <p>Input word or meaning of the word doesn't exist.</p>
-        <?php } ?>
-        <?php
-          file_put_contents($filename, $newWord."	".$meaning."\n", FILE_APPEND);
-        ?>
-        <p>Adding a word is success!.</p>
-
+          <?php
+          if ( isset($_GET["new_word"]) and isset($_GET["meaning"]) ) {
+            $newWord = $_GET["new_word"];
+            $meaning = $_GET["meaning"];
+            file_put_contents($filename, $newWord."	".$meaning."\n", FILE_APPEND);
+             ?>
+            <p>Adding a word is success!.</p>
+          <?php
+          }
+          else { ?>
+            <p>Input word or meaning of the word doesn't exist.</p>
+          <?php } ?>
     </div>
 </div>
 <div id="footer">
