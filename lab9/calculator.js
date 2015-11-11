@@ -12,9 +12,9 @@ window.onload = function () {
             }
             else if (value == "AC") {
               displayVal = "0";
-              stack = new Array();
-              
-              document.getElementById('expression').innerHTML = stack;
+              stack = [];
+
+              document.getElementById('expression').innerHTML = "0";
             }
             else if (value == ".") {
               if (displayVal.indexOf(".") == -1) displayVal += value;
