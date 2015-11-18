@@ -1,6 +1,6 @@
 "use strict";
 
-var interval = 3000;
+var interval = 2000;
 var numberOfBlocks = 9;
 var numberOfTarget = 3;
 var targetBlocks = [];
@@ -39,7 +39,7 @@ function startToSetTarget(){
     selectedBlocks = [];
 
     while (true) {
-      if (targetBlocks.length == 3) break;
+      if (targetBlocks.length == numberOfTarget) break;
       var temp = Math.floor(Math.random() * numberOfBlocks);
       if (targetBlocks[(targetBlocks.length)-1] != temp) targetBlocks += temp;
     }
@@ -72,7 +72,7 @@ function showToSelect(){
           if ($("state").innerHTML == "Select!") {
             if (selectedBlocks.length < numberOfTarget) {
               this.addClassName("selected");
-              selectedBlocks += i;
+              selectedBlocks += this.readAttribute("data-index");
             }
           }
         }
@@ -91,15 +91,22 @@ function selectToResult(){
         blocks[i].removeClassName("selected");
     }
 
-    /* answer도 아직
-    var answer = 0;
+    var answer;
+    var result = $("answer").innerHTML.split("/");
+    result[0] = parseInt(result[0]);
+    result[1] = parseInt(result[1]);
+
     for (var i=0; i<targetBlocks.length; i++) {
-      for (var j=0; j<selectedBlocks.length; i++) {
-          if (targetBlocks[i] == selectedBlocks[j]) answer++;
+      for (var j=0; j<selectedBlocks.length; j++) {
+          if (targetBlocks[i] == selectedBlocks[j]) result[0] += 1;
       }
     }
-    $("answer").innerHTML = answer + "/" + numberOfTarget;
-    */
+
+    result[1] += numberOfTarget;
+    answer = result.join("/");
+
+    $("answer").innerHTML = answer;
+
     timer = setTimeout(startToSetTarget, interval);
 
 }
