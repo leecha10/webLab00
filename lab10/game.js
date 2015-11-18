@@ -1,6 +1,6 @@
 "use strict";
 
-var interval = 2000;
+var interval = 3000;
 var numberOfBlocks = 9;
 var numberOfTarget = 3;
 var targetBlocks = [];
