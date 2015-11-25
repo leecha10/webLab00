@@ -1,5 +1,6 @@
 <?php
-$SONGS_FILE = "songs.txt";
+//$SONGS_FILE = "songs.txt";
+$SONGS_FILE = "songs_shuffled.txt";
 
 if (!isset($_SERVER["REQUEST_METHOD"]) || $_SERVER["REQUEST_METHOD"] != "GET") {
 	header("HTTP/1.1 400 Invalid Request");
@@ -24,6 +25,8 @@ print "<songs>\n";
 
 
 $lines = file($SONGS_FILE);
+// songs.txt
+/*
 for ($i = 0; $i < count($lines); $i++) {
 	list($title, $artist, $rank, $genre, $time) = explode("|", trim($lines[$i]));
 	if ($rank <= $top) {
@@ -32,9 +35,28 @@ for ($i = 0; $i < count($lines); $i++) {
 		print "\t\t<artist>$artist</artist>\n";
 		print "\t\t<genre>$genre</genre>\n";
 		print "\t\t<time>$time</time>\n";
-		print "\t</song>\n";		
+		print "\t</song>\n";
 	}
 }
+*/
+
+// songs_shuffled.txt
+
+for ($j = 0; $j < $top; $j++) {
+	for ($i = 0; $i < count($lines); $i++) {
+		list($title, $artist, $rank, $genre, $time) = explode("|", trim($lines[$i]));
+		if ($rank == ($j+1)) {
+			print "\t<song rank=\"$rank\">\n";
+			print "\t\t<title>$title</title>\n";
+			print "\t\t<artist>$artist</artist>\n";
+			print "\t\t<genre>$genre</genre>\n";
+			print "\t\t<time>$time</time>\n";
+			print "\t</song>\n";
+		}
+	}
+}
+
+
 print "</songs>";
 
 ?>
