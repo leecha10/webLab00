@@ -23,9 +23,18 @@ document.observe("dom:loaded", function() {
 
 function showSongs_XML(ajax) {
 	//alert(ajax.responseText);
+
+  // clean child of songs
+  /*
   var songs = $$("#songs li");
   for (var i=0; i<songs.length; i++) {
       songs[i].parentNode.removeChild(songs[i]);
+  }
+  */
+
+  // clean child of songs (2)
+  while ($("songs").firstChild) {
+    $("songs").removeChild($("songs").firstChild);
   }
 
   var elms = ajax.responseXML.getElementsByTagName("song");
@@ -44,9 +53,18 @@ function showSongs_XML(ajax) {
 
 function showSongs_JSON(ajax) {
 	//alert(ajax.responseText);
+
+  // clean child of songs
+  /*
   var songs = $$("#songs li");
   for (var i=0; i<songs.length; i++) {
       songs[i].parentNode.removeChild(songs[i]);
+  }
+  */
+
+  // clean child of songs (2)
+  while ($("songs").firstChild) {
+    $("songs").removeChild($("songs").firstChild);
   }
 
   var data = JSON.parse(ajax.responseText);
